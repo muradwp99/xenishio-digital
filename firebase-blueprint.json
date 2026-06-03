@@ -1,0 +1,196 @@
+{
+  "entities": {
+    "blog_posts": {
+      "title": "BlogPost",
+      "description": "Dynamic web and marketing blog articles.",
+      "type": "object",
+      "properties": {
+        "slug": { "type": "string" },
+        "title": { "type": "string" },
+        "excerpt": { "type": "string" },
+        "body": { "type": "string" },
+        "publishedAt": { "type": "string" },
+        "categories": { "type": "array" },
+        "readTime": { "type": "integer" },
+        "seoTitle": { "type": "string" },
+        "seoDescription": { "type": "string" },
+        "featured": { "type": "boolean" },
+        "image": { "type": "string" }
+      },
+      "required": ["slug", "title", "excerpt", "body", "publishedAt"]
+    },
+    "projects": {
+      "title": "ProjectItem",
+      "description": "Portfolio case studies of completed client work.",
+      "type": "object",
+      "properties": {
+        "slug": { "type": "string" },
+        "title": { "type": "string" },
+        "client": { "type": "string" },
+        "industry": { "type": "string" },
+        "services": { "type": "array" },
+        "tags": { "type": "array" },
+        "description": { "type": "string" },
+        "challenge": { "type": "string" },
+        "solution": { "type": "string" },
+        "results": { "type": "array" },
+        "techStack": { "type": "array" },
+        "completedAt": { "type": "string" },
+        "image": { "type": "string" }
+      },
+      "required": ["slug", "title", "client", "description", "challenge", "solution"]
+    },
+    "pricing_tiers": {
+      "title": "PricingTier",
+      "description": "Standard service pricing plans and retainer packages.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "price": { "type": "string" },
+        "period": { "type": "string" },
+        "description": { "type": "string" },
+        "features": { "type": "array" },
+        "highlighted": { "type": "boolean" },
+        "ctaText": { "type": "string" }
+      },
+      "required": ["id", "name", "price", "description", "features"]
+    },
+    "testimonials": {
+      "title": "Testimonial",
+      "description": "Client reviews and feedback comments.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "quote": { "type": "string" },
+        "author": { "type": "string" },
+        "role": { "type": "string" },
+        "avatar": { "type": "string" }
+      },
+      "required": ["id", "quote", "author", "role"]
+    },
+    "faqs": {
+      "title": "FAQItem",
+      "description": "General frequently asked questions items.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "question": { "type": "string" },
+        "answer": { "type": "string" }
+      },
+      "required": ["id", "question", "answer"]
+    },
+    "contact_entries": {
+      "title": "ContactSubmission",
+      "description": "Inquiries captured from the B2B contact form.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "projectType": { "type": "string" },
+        "message": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "name", "email", "message"]
+    },
+    "calculator_submissions": {
+      "title": "CalculatorSubmission",
+      "description": "Leads and calculations captured from the cost calculator widget.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "company": { "type": "string" },
+        "min": { "type": "integer" },
+        "max": { "type": "integer" },
+        "breakdownText": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "name", "email", "min", "max"]
+    },
+    "social_links": {
+      "title": "SocialLink",
+      "description": "Links to social platforms for display across the app.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "platform": { "type": "string" },
+        "url": { "type": "string" },
+        "iconName": { "type": "string" }
+      },
+      "required": ["id", "platform", "url"]
+    },
+    "settings_custom": {
+      "title": "SystemSetting",
+      "description": "Global custom tags, logo changes, pixels, head or foot code inserts.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "logoText": { "type": "string" },
+        "logoUrl": { "type": "string" },
+        "googleTagsCode": { "type": "string" },
+        "customHeadCode": { "type": "string" },
+        "customFootCode": { "type": "string" },
+        "facebookPixelCode": { "type": "string" }
+      },
+      "required": ["id"]
+    },
+    "calculator_options": {
+      "title": "CalculatorOption",
+      "description": "Configurable service items for calculators.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "category": { "type": "string" },
+        "name": { "type": "string" },
+        "minPrice": { "type": "integer" },
+        "maxPrice": { "type": "integer" }
+      },
+      "required": ["id", "category", "name", "minPrice", "maxPrice"]
+    }
+  },
+  "firestore": {
+    "blog_posts/{id}": {
+      "schema": "blog_posts",
+      "description": "Collection of blog posts."
+    },
+    "projects/{id}": {
+      "schema": "projects",
+      "description": "Collection of projects / case studies."
+    },
+    "pricing_tiers/{id}": {
+      "schema": "pricing_tiers",
+      "description": "Collection of plan tiers."
+    },
+    "testimonials/{id}": {
+      "schema": "testimonials",
+      "description": "Collection of testimonials."
+    },
+    "faqs/{id}": {
+      "schema": "faqs",
+      "description": "Collection of faqs."
+    },
+    "contact_entries/{id}": {
+      "schema": "contact_entries",
+      "description": "Collection of contact lead entries."
+    },
+    "calculator_submissions/{id}": {
+      "schema": "calculator_submissions",
+      "description": "Collection of calculator leads."
+    },
+    "social_links/{id}": {
+      "schema": "social_links",
+      "description": "Collection of social media profiles."
+    },
+    "settings_custom/{id}": {
+      "schema": "settings_custom",
+      "description": "Singleton or specific configuration values."
+    },
+    "calculator_options/{id}": {
+      "schema": "calculator_options",
+      "description": "Collection of option cost mappings."
+    }
+  }
+}

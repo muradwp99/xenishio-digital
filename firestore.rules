@@ -1,0 +1,114 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Global Safety Net - Default Deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Common Helpers
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == 'adminmurad@xenishio.com' ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // 1. Blog Posts
+    match /blog_posts/{id} {
+      allow read: if true;
+      allow create: if isValidId(id);
+      allow update, delete: if isAdmin();
+    }
+
+    // 2. Projects (Case Studies)
+    match /projects/{id} {
+      allow read: if true;
+      allow create: if isValidId(id);
+      allow update, delete: if isAdmin();
+    }
+
+    // 3. Pricing Tiers
+    match /pricing_tiers/{id} {
+      allow read: if true;
+      allow create: if isValidId(id);
+      allow update, delete: if isAdmin();
+    }
+
+    // 4. Testimonials (Reviews)
+    match /testimonials/{id} {
+      allow read: if true;
+      allow create: if isValidId(id);
+      allow update, delete: if isAdmin();
+    }
+
+    // 5. FAQs
+    match /faqs/{id} {
+      allow read: if true;
+      allow create: if isValidId(id);
+      allow update, delete: if isAdmin();
+    }
+
+    // 6. Contact Entries (PII Isolation: Public Create-Only, Admin view/delete)
+    match /contact_entries/{id} {
+      allow create: if isValidId(id) && 
+                    incoming().name is string && incoming().name.size() <= 100 &&
+                    incoming().email is string && incoming().email.size() <= 100 &&
+                    incoming().message is string && incoming().message.size() <= 5000;
+      allow read, update, delete: if isAdmin();
+    }
+
+    // 7. Calculator Submissions (PII Isolation: Public Create-Only, Admin view/delete)
+    match /calculator_submissions/{id} {
+      allow create: if isValidId(id) && 
+                    incoming().name is string && incoming().name.size() <= 100 &&
+                    incoming().email is string && incoming().email.size() <= 100 &&
+                    incoming().min is int && incoming().max is int;
+      allow read, update, delete: if isAdmin();
+    }
+
+    // 8. Social Links
+    match /social_links/{id} {
+      allow read: if true;
+      allow create: if isValidId(id);
+      allow update, delete: if isAdmin();
+    }
+
+    // 9. Site Custom Settings
+    match /settings_custom/{id} {
+      allow read: if true;
+      allow create: if isValidId(id);
+      allow update, delete: if isAdmin();
+    }
+
+    // 10. Calculator Option Cost Mappings
+    match /calculator_options/{id} {
+      allow read: if true;
+      allow create: if isValidId(id);
+      allow update, delete: if isAdmin();
+    }
+
+    // 11. Admins Collection
+    match /admins/{id} {
+      allow read: if isSignedIn() && (request.auth.uid == id || isAdmin());
+      allow write: if isSignedIn() && (request.auth.token.email == 'adminmurad@xenishio.com' || isAdmin());
+    }
+  }
+}

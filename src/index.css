@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Instrument+Serif:ital@1&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --font-serif: "Instrument Serif", serif;
+
+  --color-bg: #030816;
+  --color-surface: #071026;
+  --color-card: #0a1635;
+  --color-border-custom: #142854;
+  --color-accent-lime: #E9AF31;
+  --color-accent-blue: #0F2973;
+  --color-accent-orange: #f97316;
+  --color-text-main: #fafafa;
+  --color-text-muted: #8b9bb4;
+  --color-brand-green: #22c55e;
+}
+
+/* Custom global styles to make scrollbar and general layout gorgeous */
+html {
+  background-color: #030816;
+  color: #fafafa;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  letter-spacing: -0.03em;
+}
+
+/* Hide default cursor on desktop when custom cursor is active */
+@media (min-width: 1024px) {
+  body.custom-cursor-active {
+    cursor: none;
+  }
+  body.custom-cursor-active a,
+  body.custom-cursor-active button,
+  body.custom-cursor-active select,
+  body.custom-cursor-active input,
+  body.custom-cursor-active textarea,
+  body.custom-cursor-active [role="button"] {
+    cursor: none !important;
+  }
+}
+
+/* Scrollbar configuration */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #030816;
+}
+::-webkit-scrollbar-thumb {
+  background: #142854;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #E9AF31;
+}
+
+/* Grain Noise Overlay */
+.noise-bg {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opactiy='0.02'/%3E%3C/svg%3E");
+  opacity: 0.015;
+  pointer-events: none;
+}
+
+/* Radial Sleek Gradient for Hero Sections */
+.sleek-hero-radial {
+  background: radial-gradient(circle at 50% 50%, #06163e 0%, #030816 100%);
+}
+
+/* Infinite Marquee */
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee-left {
+  animation: scroll-left 30s linear infinite;
+}
+
+.animate-marquee-left:hover {
+  animation-play-state: paused;
+}
