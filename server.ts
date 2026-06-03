@@ -13,7 +13,7 @@ dotenv.config();
 
 async function startServer() {
   const app = express();
-  const PORT = 3000;
+  const PORT = process.env.PORT ? Number(process.env.PORT) : 3000;
 
   // Body Parsing Middlewares
   app.use(express.json());
@@ -195,7 +195,7 @@ YOUR BEHAVIORIAL RULES:
     });
   }
 
-  // Bound to the hardcoded secure port 3000
+  // Bound to the environment port or fallback 3000
   app.listen(PORT, '0.0.0.0', () => {
     console.log(`[Xenishio Full Stack Server] Active under host 0.0.0.0 on port ${PORT}`);
   });
